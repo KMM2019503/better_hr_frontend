@@ -1,0 +1,30 @@
+query Users($limit: Int, $page: Int) {
+  users(limit: $limit, page: $page) {
+    data {
+      id
+      name
+      email
+      position
+      salary
+      role
+      department
+      date_of_birth
+      nrc
+      address
+      phone
+      gender
+      skills
+      emergency_contact
+      emergency_contact_number
+      joining_date
+      system_status
+    }
+    total
+    per_page
+    current_page
+    from
+    to
+    last_page
+    has_more_pages
+  }
+}
