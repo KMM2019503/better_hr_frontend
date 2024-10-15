@@ -1,108 +1,107 @@
 export const EmployeetableColumns = [
-    {
-      label: "Employee",
-      prop: "name",
-      width: 150,
-      fixed: true,
-    },
-    {
-      label: "Email",
-      prop: "email",
-      width: 250,
-      fixed: false,
-    },
-    {
-      label: "Position",
-      prop: "position",
-      width: 200,
-      fixed: false,
-    },
-    {
-      label: "Salary",
-      prop: "salary",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "Role",
-      prop: "role",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "Password",
-      prop: "password",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "Department",
-      prop: "department",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "Date of Birth",
-      prop: "date_of_birth",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "NRC",
-      prop: "nrc",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "Address",
-      prop: "address",
-      width: 200,
-      fixed: false,
-    },
-    {
-      label: "Phone",
-      prop: "phone",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "Gender",
-      prop: "gender",
-      width: 100,
-      fixed: false,
-    },
-    {
-      label: "Skills",
-      prop: "skills",
-      width: 200,
-      fixed: false,
-      show_overflow_tooltip: true,
-    },
-    // {
-    //   label: "Emergency Contact",
-    //   prop: "emergency_contact",
-    //   width: 150,
-    //   fixed: false,
-    // },
-    // {
-    //   label: "Emergency Contact Number",
-    //   prop: "emergency_contact_number",
-    //   width: 150,
-    //   fixed: false,
-    // },
-    {
-      label: "Joining Date",
-      prop: "joining_date",
-      width: 150,
-      fixed: false,
-    },
-    {
-      label: "System Status",
-      prop: "system_status",
-      width: 150,
-      fixed: false,
-    },
-  ];
+  {
+    label: "Employee",
+    prop: "name",
+    width: 250,
+    fixed: true,
+  },
+  {
+    label: "Email",
+    prop: "email",
+    width: 250,
+    fixed: false,
+  },
+  {
+    label: "Position",
+    prop: "position",
+    width: 200,
+    fixed: false,
+    show_overflow_tooltip: true,
+
+  },
+  {
+    label: "Salary",
+    prop: "salary",
+    width: 150,
+    fixed: false,
+  },
+  {
+    label: "Role",
+    prop: "role",
+    width: 150,
+    fixed: false,
+  },
+  {
+    label: "Department",
+    prop: "department",
+    width: 150,
+    fixed: false,
+  },
+  {
+    label: "Date of Birth",
+    prop: "date_of_birth",
+    width: 150,
+    fixed: false,
+  },
+  {
+    label: "NRC",
+    prop: "nrc",
+    width: 150,
+    fixed: false,
+  },
+  {
+    label: "Address",
+    prop: "address",
+    width: 200,
+    fixed: false,
+    show_overflow_tooltip: true,
+
+  },
+  {
+    label: "Phone",
+    prop: "phone",
+    width: 150,
+    fixed: false,
+  },
+  {
+    label: "Gender",
+    prop: "gender",
+    width: 100,
+    fixed: false,
+  },
+  {
+    label: "Skills",
+    prop: "skills",
+    width: 200,
+    fixed: false,
+    show_overflow_tooltip: true,
+  },
+  {
+    label: "Emergency Contact",
+    prop: "emergency_contact",
+    width: 200,
+    fixed: false,
+  },
+  {
+    label: "Emergency Contact Number",
+    prop: "emergency_contact_number",
+    width: 250,
+    fixed: false,
+  },
+  {
+    label: "Joining Date",
+    prop: "joining_date",
+    width: 150,
+    fixed: false,
+  },
+  {
+    label: "System Status",
+    prop: "system_status",
+    width: 150,
+    fixed: false,
+  },
+];
+
   
   export const EmployeetableData = [
     {
