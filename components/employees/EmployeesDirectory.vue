@@ -2,8 +2,10 @@
   <div class="py-4 px-4">
     <div class="flex justify-between items-center">
       <h3 class="text-green-500">Employee Directory</h3>
-      <el-button class="!text-white !py-2" color="#1ed292"
-        >Create Employee</el-button
+      <NuxtLink
+        to="/employees/create"
+        class="py-2 px-4 bg-[#1ed292] text-white rounded-sm hover:bg-[#2ebe4f]"
+        >Create Employee</NuxtLink
       >
     </div>
     <!-- Data Table -->
@@ -16,7 +18,7 @@
         stripe
         ref="multipleTableRef"
         @selection-change="handleSelectionChange"
-        style="width: 100%; height: 820px"
+        style="width: 100%; height: 800px"
         max-height="100%"
       >
         <el-table-column type="selection" :selectable="selectable" width="55" />
