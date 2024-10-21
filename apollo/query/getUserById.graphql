@@ -1,0 +1,21 @@
+query UserById($id: Int!) {
+  userById(id: $id) {
+    id
+    name
+    email
+    position
+    salary
+    role
+    department
+    date_of_birth
+    nrc
+    address
+    phone
+    gender
+    skills
+    emergency_contact
+    emergency_contact_number
+    joining_date
+    system_status
+  }
+}

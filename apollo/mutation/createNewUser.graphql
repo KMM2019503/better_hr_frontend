@@ -1,0 +1,57 @@
+mutation CreateUser(
+  $name: String!
+  $email: String!
+  $password: String!
+  $position: String
+  $salary: String
+  $department: String
+  $date_of_birth: String
+  $nrc: String
+  $address: String
+  $phone: String
+  $gender: String
+  $skills: String
+  $emergency_contact: String
+  $emergency_contact_number: String
+  $joining_date: String
+  $system_status: String!
+  $role: String!
+) {
+  createUser(
+    name: $name
+    email: $email
+    password: $password
+    position: $position
+    salary: $salary
+    department: $department
+    date_of_birth: $date_of_birth
+    nrc: $nrc
+    address: $address
+    phone: $phone
+    gender: $gender
+    skills: $skills
+    emergency_contact: $emergency_contact
+    emergency_contact_number: $emergency_contact_number
+    joining_date: $joining_date
+    system_status: $system_status
+    role: $role
+  ) {
+    id
+    name
+    email
+    position
+    salary
+    role
+    department
+    date_of_birth
+    nrc
+    address
+    phone
+    gender
+    skills
+    emergency_contact
+    emergency_contact_number
+    joining_date
+    system_status
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="py-4 px-4">
     <div class="flex justify-between items-center">
-      <h3 class="text-green-500">Employee Directory</h3>
+      <h3 class="text-[#1ED292]">Employee Directory</h3>
       <NuxtLink
         to="/employees/create"
         class="py-2 px-4 bg-[#1ed292] text-white rounded-sm hover:bg-[#2ebe4f]"
@@ -12,7 +12,7 @@
     <div class="mt-3" v-if="employees">
       <!-- table -->
       <el-table
-        v-loading="loading"
+        v-loading="isLoading"
         v-if="isMounted"
         :data="employees"
         stripe
@@ -32,7 +32,10 @@
           :show-overflow-tooltip="column?.show_overflow_tooltip"
         >
           <template v-if="column.prop === 'name'" #default="scope">
-            <p @click="handleClickName(scope.row.email)" class="cursor-pointer">
+            <p
+              @click="handleClickName(scope.row.id)"
+              class="cursor-pointer hover:text-[#1ed292]"
+            >
               {{ scope.row.name }}
             </p>
           </template>
@@ -109,10 +112,12 @@ onMounted(() => {
 const employeesStore = useEmployeesStore();
 
 const employees = computed(() => employeesStore.employees);
-const loading = computed(() => employeesStore.isLoading);
+const isLoading = computed(() => employeesStore.isLoading);
 const current_page = computed(() => employeesStore.current_page);
 const page_size = computed(() => employeesStore.per_page);
 const total = computed(() => employeesStore.total);
+
+console.log("🚀 ~ employees:", employees);
 
 const multipleTableRef = ref();
 const multipleSelection = ref([]);
@@ -126,25 +131,27 @@ const handleSelectionChange = (val) => {
 const router = useRouter();
 
 // handle click name
-const handleClickName = (email) => {
-  console.log("🚀 ~ handleClickName ~ email:", email);
-  router.push(`/employees/${email}`);
+const handleClickName = (id) => {
+  router.push(`/employees/${id}`);
 };
 
 // pagination logic
 const handleCurrentChange = async (value) => {
-  console.log("🚀 ~ handleCurrentChange ~ value:", value);
   await employeesStore.setCurrentPage(value);
   await employeesStore.getEmployeesData(value, employeesStore.per_page);
 };
 
 const handleSizeChange = async (value) => {
-  console.log("🚀 ~ handleSizeChange ~ value:", value);
   await employeesStore.setPageSize(value);
   await employeesStore.getEmployeesData(employeesStore.current_page, value);
 };
-
-// Formmating Date
 </script>
 
-<style scoped></style>
+<style scoped>
+::v-deep .el-pagination.is-background .btn-next.is-active,
+::v-deep .el-pagination.is-background .btn-prev.is-active,
+::v-deep .el-pagination.is-background .el-pager li.is-active {
+  background-color: #1ed292 !important;
+  color: var(--el-color-white) !important;
+}
+</style>

@@ -1,7 +1,8 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.js
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
-  css: ['~/assets/css/main.css'],
+  plugins: ["~/plugins/vue-tel-input", "~/plugins/vue-phone-number-input"],
+  compatibilityDate: "2024-04-03",
+  css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   postcss: {
     plugins: {
@@ -9,13 +10,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ['@pinia/nuxt','@element-plus/nuxt','@nuxtjs/apollo'],
+  modules: ["@pinia/nuxt", "@element-plus/nuxt", "@nuxtjs/apollo"],
   apollo: {
     clients: {
       default: {
-        httpEndpoint: 'http://127.0.0.1:8000/graphql/user'  
-      }
+        httpEndpoint: "http://127.0.0.1:8000/graphql/user",
+      },
     },
   },
-  ssr: false
-})
+  ssr: false,
+});

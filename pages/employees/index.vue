@@ -14,14 +14,16 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { useAsyncData } from "nuxt/app";
 import EmployeesDirectory from "../../components/employees/EmployeesDirectory.vue";
 import FirstChildSidebar from "../../components/FirstChildSidebar.vue";
 import { useEmployeesStore } from "../../stores/employees";
 
 const employeeStore = useEmployeesStore();
 
-onMounted(() => {
-  employeeStore.getEmployeesData(1, 20);
-});
+const {
+  data: employeesData,
+  pending,
+  error,
+} = useAsyncData("employees", () => employeeStore.getEmployeesData(1, 20));
 </script>

@@ -12,13 +12,13 @@
         >
       </li>
       <li class="w-full flex justify-start group">
-        <NuxtLink
+        <!-- <NuxtLink
           to="/update_request"
           active-class="text-green-500"
           class="w-full text-[14px] group-hover:text-green-500 transition"
         >
           Update Request</NuxtLink
-        >
+        > -->
       </li>
     </ul>
   </div>
