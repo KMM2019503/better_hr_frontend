@@ -5,14 +5,13 @@
       <el-aside width="180px" class="h-screen">
         <FirstChildSidebar />
       </el-aside>
-      <el-main class="rounded-tl-3xl rounded-bl-3xl shadow-2xl bg-white !p-0">
-        <div v-if="loading" class="p-10">Loading...</div>
-        <div v-else-if="error">Error: {{ errorMessage }}</div>
-        <div v-else class="p-10">
-          <h1>Emp Detail</h1>
-          <h2>{{ employeeDetails.name }}</h2>
-          <p>{{ employeeDetails.email }}</p>
-
+      <el-main
+        v-loading="loading"
+        class="rounded-tl-3xl rounded-bl-3xl shadow-2xl bg-white !py-4 !pl-7 !pr-4"
+      >
+        <div v-if="error">Error: {{ errorMessage }}</div>
+        <div v-else class="">
+          <EmployeeDetail :employee="employeeDetails" />
           <!-- child components -->
         </div>
       </el-main>
@@ -22,6 +21,7 @@
 
 <script setup>
 import getUserById from "~/apollo/query/getUserById.graphql";
+import EmployeeDetail from "../../../components/employees/EmployeeDetail.vue";
 
 const route = useRoute();
 const employeeId = parseInt(route.params.id, 10);

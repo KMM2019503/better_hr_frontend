@@ -4,94 +4,100 @@
       <h3 class="text-[#1ED292]">Employee Directory</h3>
       <NuxtLink
         to="/employees/create"
-        class="py-2 px-4 bg-[#1ed292] text-white rounded-sm hover:bg-[#2ebe4f]"
+        class="py-2 px-4 bg-[#1ed292] text-white rounded-md hover:bg-[#2ebe4f]"
         >Create Employee</NuxtLink
       >
     </div>
     <!-- Data Table -->
-    <div class="mt-3" v-if="employees">
-      <!-- table -->
-      <el-table
-        v-loading="isLoading"
-        v-if="isMounted"
-        :data="employees"
-        stripe
-        ref="multipleTableRef"
-        @selection-change="handleSelectionChange"
-        style="width: 100%; height: 800px"
-        max-height="100%"
-      >
-        <el-table-column type="selection" :selectable="selectable" width="55" />
-        <el-table-column
-          v-for="column in EmployeetableColumns"
-          :key="column.prop"
-          :fixed="column.fixed"
-          :prop="column.prop"
-          :label="column.label"
-          :width="column.width"
-          :show-overflow-tooltip="column?.show_overflow_tooltip"
+    <client-only>
+      <div class="mt-3" v-if="employees">
+        <!-- table -->
+        <el-table
+          v-loading="isLoading"
+          v-if="isMounted"
+          :data="employees"
+          stripe
+          ref="multipleTableRef"
+          @selection-change="handleSelectionChange"
+          style="width: 100%; height: 800px"
+          max-height="100%"
         >
-          <template v-if="column.prop === 'name'" #default="scope">
-            <p
-              @click="handleClickName(scope.row.id)"
-              class="cursor-pointer hover:text-[#1ed292]"
-            >
-              {{ scope.row.name }}
-            </p>
-          </template>
+          <el-table-column
+            type="selection"
+            :selectable="selectable"
+            width="55"
+          />
+          <el-table-column
+            v-for="column in EmployeetableColumns"
+            :key="column.prop"
+            :fixed="column.fixed"
+            :prop="column.prop"
+            :label="column.label"
+            :width="column.width"
+            :show-overflow-tooltip="column?.show_overflow_tooltip"
+          >
+            <template v-if="column.prop === 'name'" #default="scope">
+              <p
+                @click="handleClickName(scope.row.id)"
+                class="cursor-pointer hover:text-[#1ed292]"
+              >
+                {{ scope.row.name }}
+              </p>
+            </template>
 
-          <template v-if="column.prop === 'date_of_birth'" #default="scope">
-            <p>
-              {{
-                scope.row.date_of_birth
-                  ? formatDate(scope.row.date_of_birth)
-                  : "N/A"
-              }}
-            </p>
-          </template>
+            <template v-if="column.prop === 'date_of_birth'" #default="scope">
+              <p>
+                {{
+                  scope.row.date_of_birth
+                    ? formatDate(scope.row.date_of_birth)
+                    : "N/A"
+                }}
+              </p>
+            </template>
 
-          <template v-if="column.prop === 'joining_date'" #default="scope">
-            <p>
-              {{
-                scope.row.joining_date
-                  ? formatDateTime(scope.row.joining_date)
-                  : "N/A"
-              }}
+            <template v-if="column.prop === 'joining_date'" #default="scope">
+              <p>
+                {{
+                  scope.row.joining_date
+                    ? formatDateTime(scope.row.joining_date)
+                    : "N/A"
+                }}
 
-              <!-- {{ scope.row.joining_date }} -->
-            </p>
-          </template>
+                <!-- {{ scope.row.joining_date }} -->
+              </p>
+            </template>
 
-          <template v-if="column.prop === 'system_status'" #default="scope">
-            <div
-              v-if="scope.row.system_status === 'active'"
-              class="w-full flex justify-center"
-            >
-              <div class="size-5 rounded-full bg-green-500"></div>
-            </div>
+            <template v-if="column.prop === 'system_status'" #default="scope">
+              <div
+                v-if="scope.row.system_status === 'active'"
+                class="w-full flex justify-center"
+              >
+                <div class="size-5 rounded-full bg-green-500"></div>
+              </div>
 
-            <div v-else class="w-full flex justify-center">
-              <div class="size-5 rounded-full bg-red-500"></div>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!-- pagination -->
-      <div class="demo-pagination-block mt-2 float-right">
-        <el-pagination
-          color="#84cc16"
-          v-model:current-page="current_page"
-          v-model:page-size="page_size"
-          :page-sizes="[10, 20, 30, 40]"
-          background
-          size="large"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+              <div v-else class="w-full flex justify-center">
+                <div class="size-5 rounded-full bg-red-500"></div>
+              </div>
+            </template>
+          </el-table-column>
+        </el-table>
+        <!-- pagination -->
+        <div class="demo-pagination-block mt-2 float-right">
+          <el-pagination
+            color="#84cc16"
+            v-model:current-page="current_page"
+            v-model:page-size="page_size"
+            :page-sizes="[10, 20, 30, 40]"
+            background
+            size="large"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          />
+        </div>
       </div>
-    </div>
+    </client-only>
   </div>
 </template>
 
@@ -148,9 +154,9 @@ const handleSizeChange = async (value) => {
 </script>
 
 <style scoped>
-::v-deep .el-pagination.is-background .btn-next.is-active,
-::v-deep .el-pagination.is-background .btn-prev.is-active,
-::v-deep .el-pagination.is-background .el-pager li.is-active {
+:deep(.el-pagination.is-background .btn-next.is-active),
+:deep(.el-pagination.is-background .btn-prev.is-active),
+:deep(.el-pagination.is-background .el-pager li.is-active) {
   background-color: #1ed292 !important;
   color: var(--el-color-white) !important;
 }

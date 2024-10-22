@@ -1,6 +1,6 @@
 // nuxt.config.js
 export default defineNuxtConfig({
-  plugins: ["~/plugins/vue-tel-input", "~/plugins/vue-phone-number-input"],
+  plugins: ["~/plugins/vue-tel-input"],
   compatibilityDate: "2024-04-03",
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
@@ -18,5 +18,5 @@ export default defineNuxtConfig({
       },
     },
   },
-  ssr: false,
+  // ssr: false,
 });
