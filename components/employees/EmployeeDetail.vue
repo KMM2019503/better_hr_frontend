@@ -11,6 +11,7 @@
       </el-breadcrumb>
 
       <el-button
+        v-if="props.employee.system_status === 'active'"
         :disabled="updateBtnDisabled"
         :loading="isLoading"
         type="primary"
@@ -20,6 +21,11 @@
         Update
       </el-button>
     </div>
+    <span
+      class="text-red-500 text-xs mt-2"
+      v-if="props.employee.system_status === 'deleted'"
+      >This user has already been deleted and cannot be updated!</span
+    >
 
     <div class="mt-3" v-loading="isLoading">
       <client-only>
@@ -36,7 +42,7 @@
               <Job :empDetail="formData" @update-form="updateFormData" />
             </el-tab-pane>
             <el-tab-pane label="System" name="system">
-              <System :empDetail="formData" />
+              <System :empDetail="formData" @deleted-employee="handleDelete" />
             </el-tab-pane>
           </el-scrollbar>
         </el-tabs>
@@ -50,7 +56,11 @@ import Profile from "./employeeDetail/Profile.vue";
 import Job from "./employeeDetail/Job.vue";
 import System from "./employeeDetail/System.vue";
 
+// mutations import
 import updateUserById from "~/apollo/mutation/updateUserById.graphql";
+import deleteUserById from "~/apollo/mutation/deleteUserById.graphql";
+
+const emits = defineEmits(["refreshing-data"]);
 
 const props = defineProps({
   employee: {
@@ -69,7 +79,8 @@ watch(
   () => props.employee,
   (newEmployee) => {
     formData.value = { ...newEmployee };
-  }
+  },
+  { immediate: true }
 );
 
 // Function to update form data from child component
@@ -93,6 +104,7 @@ const handleTabsBeforeLeave = async (newActiveName, oldActiveName) => {
 };
 
 const { mutate: updateUser } = useMutation(updateUserById);
+const { mutate: deleteUser } = useMutation(deleteUserById);
 
 const handleUpdate = async () => {
   if (updateBtnDisabled.value) return;
@@ -121,21 +133,46 @@ const handleUpdate = async () => {
       system_status: formData.value.system_status,
     });
 
-    console.log("🚀 ~ handleUpdate ~ response:", response);
-
     ElNotification({
       title: "Success",
       message: "Employee Updated successfully.",
       type: "success",
     });
 
-    window.location.reload();
+    emits("refreshing-data");
+    isChanged.value = false;
   } catch (error) {
     console.log("🚀 ~ handleUpdate ~ error:", error);
 
     ElNotification({
       title: "Error",
       message: `Failed to update employee: Internal Server Error`,
+      type: "error",
+    });
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const handleDelete = async (value) => {
+  try {
+    isLoading.value = true;
+    await deleteUser({
+      id: value,
+    });
+    ElNotification({
+      title: "Success",
+      message: "Employee Deleted successfully.",
+      type: "success",
+    });
+
+    // emits("refreshing-data");
+    await navigateTo("/employees");
+  } catch (error) {
+    console.log("🚀 ~ handleDelete ~ error:", error);
+    ElNotification({
+      title: "Error",
+      message: `Failed to delete employee: Internal Server Error`,
       type: "error",
     });
   } finally {

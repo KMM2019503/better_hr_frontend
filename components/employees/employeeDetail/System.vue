@@ -27,37 +27,15 @@ const props = defineProps({
   },
 });
 
+const emits = defineEmits(["deleted-employee"]);
+
 const isLoading = ref(false);
 const route = useRoute();
 
 const { mutate: deleteUser } = useMutation(deleteUserById);
 
 const handleDelete = async (value) => {
-  try {
-    console.log(value);
-    isLoading.value = true;
-    const response = await deleteUser({
-      id: value,
-    });
-
-    ElNotification({
-      title: "Success",
-      message: "Employee Deleted successfully.",
-      type: "success",
-    });
-
-    navigateTo("/employees/" + value.toString());
-  } catch (error) {
-    console.log("🚀 ~ handleUpdate ~ error:", error);
-
-    ElNotification({
-      title: "Error",
-      message: `Failed to update employee: Internal Server Error`,
-      type: "error",
-    });
-  } finally {
-    isLoading.value = false;
-  }
+  emits("deleted-employee", value);
 };
 </script>
 

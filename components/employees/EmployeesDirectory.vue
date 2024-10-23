@@ -49,7 +49,7 @@
               <p>
                 {{
                   scope.row.date_of_birth
-                    ? formatDate(scope.row.date_of_birth)
+                    ? calculateYearsFromDate(scope.row.date_of_birth)
                     : "N/A"
                 }}
               </p>
@@ -64,19 +64,6 @@
                 }}
               </p>
             </template>
-
-            <!-- <template v-if="column.prop === 'system_status'" #default="scope">
-              <div
-                v-if="scope.row.system_status === 'active'"
-                class="w-full flex justify-center"
-              >
-                <div class="size-5 rounded-full bg-green-500"></div>
-              </div>
-
-              <div v-else class="w-full flex justify-center">
-                <div class="size-5 rounded-full bg-red-500"></div>
-              </div>
-            </template> -->
           </el-table-column>
         </el-table>
         <!-- pagination -->
@@ -102,7 +89,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
-import { formatDate } from "~/utils/helper.js";
+import { formatDate, calculateYearsFromDate } from "~/utils/helper.js";
 import { EmployeetableColumns } from "../../constants/employeeTable";
 import { formatDateTime } from "../../utils/helper";
 import { useEmployeesStore } from "../../stores/employees";
@@ -120,8 +107,6 @@ const isLoading = computed(() => employeesStore.isLoading);
 const current_page = computed(() => employeesStore.current_page);
 const page_size = computed(() => employeesStore.per_page);
 const total = computed(() => employeesStore.total);
-
-console.log("🚀 ~ employees:", employees);
 
 const multipleTableRef = ref();
 const multipleSelection = ref([]);

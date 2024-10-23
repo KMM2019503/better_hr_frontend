@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div class="p-4 overflow-hidden">
     <div>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/employees' }"
@@ -10,123 +10,133 @@
         >
       </el-breadcrumb>
     </div>
-    <div class="mt-3">
-      <el-form :model="newEmployees[0]" :rules="rules" ref="employeeForm">
-        <!-- Table -->
-        <el-table
-          :scrollbar-always-on="true"
-          v-loading="isLoading"
-          v-if="isMounted"
-          :data="newEmployees"
-          stripe
-          style="width: 100%; height: 800px"
-          max-height="100%"
-        >
-          <el-table-column
-            v-for="column in EmployeeCreateTableColumns"
-            :key="column.prop"
-            :fixed="column.fixed"
-            :prop="column.prop"
-            :label="column.label"
-            :width="column.width"
-            :show-overflow-tooltip="column?.show_overflow_tooltip"
+    <client-only>
+      <div class="mt-3">
+        <el-form :model="newEmployees[0]" :rules="rules" ref="employeeForm">
+          <!-- Table -->
+          <el-table
+            :scrollbar-always-on="true"
+            v-loading="isLoading"
+            v-if="isMounted"
+            :data="newEmployees"
+            stripe
+            style="width: 100%; height: 800px"
+            max-height="100%"
+            class="!z-20"
           >
-            <template #default="scope" v-if="column.prop === 'phone'">
-              <vue-tel-input
-                v-model="scope.row[column.prop]"
-                placeholder="Enter phone number"
-                mode="international"
-              />
-            </template>
-            <template v-else-if="column.prop === 'salary'" #default="scope">
-              <el-input-number
-                v-model="scope.row[column.prop]"
-                :min="1"
-                :max="99999999999999"
-                :controls="false"
-                :style="{
-                  width: column.width
-                    ? `${parseInt(column.width) * 0.8}px`
-                    : '80% !important',
-                }"
-              >
-                <template #suffix>
-                  <span>MMK</span>
-                </template>
-              </el-input-number>
-            </template>
-            <template
-              v-else-if="
-                ['date_of_birth', 'joining_date'].includes(column.prop)
-              "
-              #default="scope"
+            <el-table-column
+              v-for="column in EmployeeCreateTableColumns"
+              :key="column.prop"
+              :fixed="column.fixed"
+              :prop="column.prop"
+              :label="column.label"
+              :width="column.width"
+              :show-overflow-tooltip="column?.show_overflow_tooltip"
             >
-              <el-date-picker
-                :style="{
-                  width: column.width
-                    ? `${parseInt(column.width) * 0.8}px`
-                    : '80% !important',
-                }"
-                v-model="scope.row[column.prop]"
-                type="date"
-                placeholder="Pick a date"
-                clearable
-                format="YYYY/MM/DD"
-                value-format="YYYY-MM-DD"
-              />
-            </template>
-            <template v-else-if="column.prop === 'gender'" #default="scope">
-              <el-select
-                v-model="scope.row[column.prop]"
-                placeholder="Select"
-                :style="{
-                  width: column.width
-                    ? `${parseInt(column.width) * 0.8}px`
-                    : '80% !important',
-                }"
-              >
-                <el-option
-                  v-for="item in genders"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </template>
-            <template
-              v-else-if="column.prop === 'system_status'"
-              #default="scope"
-            >
-              <div>
-                <el-checkbox v-model="scope.row[column.prop]" label="Active" />
-              </div>
-            </template>
-            <template #default="scope">
-              <el-form-item :prop="column.prop">
-                <el-input
+              <template #default="scope" v-if="column.prop === 'phone'">
+                <div class="!z-50 !absolute pb-[30px] !top-4">
+                  <vue-tel-input
+                    class="!z-[1000]"
+                    v-model="scope.row[column.prop]"
+                    placeholder="Enter phone number"
+                    mode="international"
+                  />
+                </div>
+              </template>
+              <template v-else-if="column.prop === 'salary'" #default="scope">
+                <el-input-number
+                  class="!border-none !border-b"
                   v-model="scope.row[column.prop]"
+                  :min="1"
+                  :max="99999999999999"
+                  :controls="false"
                   :style="{
                     width: column.width
                       ? `${parseInt(column.width) * 0.8}px`
                       : '80% !important',
                   }"
+                >
+                  <template #suffix>
+                    <span>MMK</span>
+                  </template>
+                </el-input-number>
+              </template>
+              <template
+                v-else-if="
+                  ['date_of_birth', 'joining_date'].includes(column.prop)
+                "
+                #default="scope"
+              >
+                <el-date-picker
+                  :style="{
+                    width: column.width
+                      ? `${parseInt(column.width) * 0.8}px`
+                      : '80% !important',
+                  }"
+                  v-model="scope.row[column.prop]"
+                  type="date"
+                  placeholder="Pick a date"
+                  clearable
+                  format="YYYY/MM/DD"
+                  value-format="YYYY-MM-DD"
                 />
-              </el-form-item>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="flex justify-start items-center gap-3 mt-3">
-          <el-button plain size="large">Cancel</el-button>
-          <el-button
-            type="success"
-            size="large"
-            :loading="isLoading"
-            @click="submitForm(employeeForm)"
-            >Create Employee</el-button
-          >
-        </div>
-      </el-form>
-    </div>
+              </template>
+              <template v-else-if="column.prop === 'gender'" #default="scope">
+                <el-select
+                  v-model="scope.row[column.prop]"
+                  placeholder="Select"
+                  :style="{
+                    width: column.width
+                      ? `${parseInt(column.width) * 0.8}px`
+                      : '80% !important',
+                  }"
+                >
+                  <el-option
+                    v-for="item in genders"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </template>
+              <template
+                v-else-if="column.prop === 'system_status'"
+                #default="scope"
+              >
+                <div>
+                  <el-checkbox
+                    v-model="scope.row[column.prop]"
+                    label="Active"
+                  />
+                </div>
+              </template>
+              <template #default="scope">
+                <el-form-item :prop="column.prop">
+                  <el-input
+                    v-model="scope.row[column.prop]"
+                    :style="{
+                      width: column.width
+                        ? `${parseInt(column.width) * 0.8}px`
+                        : '80% !important',
+                    }"
+                  />
+                </el-form-item>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="flex justify-start items-center gap-3 mt-3">
+            <el-button plain size="large">Cancel</el-button>
+            <el-button
+              type="success"
+              size="large"
+              :loading="isLoading"
+              @click="submitForm(employeeForm)"
+              >Create Employee</el-button
+            >
+          </div>
+        </el-form>
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -224,8 +234,6 @@ const submitForm = async (formEl) => {
           role: "user",
         });
 
-        console.log("🚀 ~ handleCreateEmployee ~ response:", response);
-
         // Success Notification
         ElNotification({
           title: "Success",
@@ -258,10 +266,15 @@ const submitForm = async (formEl) => {
         router.push(`/employees`);
       } catch (error) {
         console.log("🚀 ~ handleCreateEmployee ~ error:", error);
+        // const errorMessage = error.message;
+        // if (error.message === " error: validation") {
+        //   console.log("running");
+        //   errorMessage = "User Email already exists";
+        // }
         // Error Notification
         ElNotification({
-          title: "Error",
-          message: `Failed to create employee: ${error.message}`,
+          title: "Internal Server Error",
+          message: "May be user email already exists",
           type: "error",
         });
       } finally {
@@ -284,6 +297,7 @@ const submitForm = async (formEl) => {
   --el-input-border-color: transparent !important;
   --el-input-hover-border-color: transparent !important;
   --el-input-focus-border-color: transparent !important;
+  --el-input-focus-border: transparent !important;
   border-bottom: 1px solid var(--el-border-color) !important;
 }
 
@@ -297,5 +311,21 @@ const submitForm = async (formEl) => {
 
 .vue-tel-input:focus-within {
   box-shadow: none !important;
+}
+
+.el-table tr {
+  background: red !important;
+}
+
+.el-table {
+  --el-table-row-hover-bg-color: white !important;
+}
+
+.el-input__wrapper .is-focus {
+  box-shadow: none !important;
+}
+
+.el-data-editor {
+  --el-input-focus-border-color: var(--el-color-primary);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="w-[60px] flex flex-col items-center bg-zinc-200 h-full">
-    <h1 class="py-5">BHR</h1>
-
+    <!-- <h1 class="py-5">BHR</h1> -->
+    <img src="~/assets/img/better_icon.svg" alt="Logo" class="size-11 mt-2" />
     <ul class="flex flex-col w-full">
       <li
         class="border hover:text-green-500 hover:bg-white w-full flex justify-center items-center py-2 transition"

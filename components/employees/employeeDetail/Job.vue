@@ -41,7 +41,7 @@
       </el-form-item>
       <div class="max-w-[600px] grid grid-cols-3 text-gray-600 text-sm">
         <p>Length of services</p>
-        <p class="col-span-2">{{ lengthOfServices }}</p>
+        <p class="col-span-2">{{ calculateYears }}</p>
       </div>
     </el-form>
   </div>
@@ -49,6 +49,7 @@
 
 <script setup>
 import { computed } from "vue";
+import { calculateYearsFromDate } from "~/utils/helper.js";
 
 const props = defineProps({
   empDetail: {
@@ -81,21 +82,9 @@ watch(
   { immediate: true } // To run the watcher immediately with the initial value
 );
 
-const lengthOfServices = computed(() => {
+const calculateYears = computed(() => {
   if (!form.joining_date) return "N/A";
-  const joiningDate = new Date(form.joining_date);
-  const currentDate = new Date();
-  const timeDiff = currentDate - joiningDate;
-
-  if (timeDiff < 0) return "Not yet to count months and years";
-
-  // Calculate years, months, and days
-  const years = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
-  const months = Math.floor(
-    (timeDiff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30)
-  );
-
-  return `${years} years, ${months} months`;
+  return calculateYearsFromDate(form.joining_date);
 });
 
 const emitFormChange = () => {

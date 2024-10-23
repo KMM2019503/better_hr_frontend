@@ -14,7 +14,7 @@ export const EmployeetableColumns = [
   {
     label: "Position",
     prop: "position",
-    width: 200,
+    width: 250,
     fixed: false,
     show_overflow_tooltip: true,
   },
@@ -33,33 +33,33 @@ export const EmployeetableColumns = [
   {
     label: "Department",
     prop: "department",
-    width: 150,
+    width: 200,
     fixed: false,
   },
   {
-    label: "Date of Birth",
+    label: "Age",
     prop: "date_of_birth",
-    width: 150,
+    width: 250,
     fixed: false,
   },
   {
     label: "NRC",
     prop: "nrc",
-    width: 150,
+    width: 250,
     fixed: false,
     show_overflow_tooltip: true,
   },
   {
     label: "Address",
     prop: "address",
-    width: 200,
+    width: 250,
     fixed: false,
     show_overflow_tooltip: true,
   },
   {
     label: "Phone",
     prop: "phone",
-    width: 150,
+    width: 200,
     fixed: false,
   },
   {
