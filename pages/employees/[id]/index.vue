@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout">
+  <div class="common-layout max-h-screen overflow-hidden">
     <el-container>
       <!-- Inner Sidebar -->
       <el-aside width="180px" class="h-screen">

@@ -62,12 +62,10 @@
                     ? formatDateTime(scope.row.joining_date)
                     : "N/A"
                 }}
-
-                <!-- {{ scope.row.joining_date }} -->
               </p>
             </template>
 
-            <template v-if="column.prop === 'system_status'" #default="scope">
+            <!-- <template v-if="column.prop === 'system_status'" #default="scope">
               <div
                 v-if="scope.row.system_status === 'active'"
                 class="w-full flex justify-center"
@@ -78,7 +76,7 @@
               <div v-else class="w-full flex justify-center">
                 <div class="size-5 rounded-full bg-red-500"></div>
               </div>
-            </template>
+            </template> -->
           </el-table-column>
         </el-table>
         <!-- pagination -->

@@ -20,6 +20,7 @@
         Update
       </el-button>
     </div>
+
     <div class="mt-3" v-loading="isLoading">
       <client-only>
         <el-tabs
@@ -27,12 +28,17 @@
           v-model="activeName"
           class="demo-tabs"
         >
-          <el-tab-pane label="Profile" name="profile">
-            <Profile :empDetail="formData" @update-form="updateFormData" />
-          </el-tab-pane>
-          <el-tab-pane label="Job" name="job">
-            <Job :empDetail="formData" @update-form="updateFormData" />
-          </el-tab-pane>
+          <el-scrollbar height="800px">
+            <el-tab-pane label="Profile" name="profile">
+              <Profile :empDetail="formData" @update-form="updateFormData" />
+            </el-tab-pane>
+            <el-tab-pane label="Job" name="job">
+              <Job :empDetail="formData" @update-form="updateFormData" />
+            </el-tab-pane>
+            <el-tab-pane label="System" name="system">
+              <System :empDetail="formData" />
+            </el-tab-pane>
+          </el-scrollbar>
         </el-tabs>
       </client-only>
     </div>
@@ -42,6 +48,8 @@
 <script setup>
 import Profile from "./employeeDetail/Profile.vue";
 import Job from "./employeeDetail/Job.vue";
+import System from "./employeeDetail/System.vue";
+
 import updateUserById from "~/apollo/mutation/updateUserById.graphql";
 
 const props = defineProps({
