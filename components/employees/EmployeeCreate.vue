@@ -45,7 +45,6 @@
               </template>
               <template v-else-if="column.prop === 'salary'" #default="scope">
                 <el-input-number
-                  class="!border-none !border-b"
                   v-model="scope.row[column.prop]"
                   :min="1"
                   :max="99999999999999"
@@ -292,12 +291,17 @@ const submitForm = async (formEl) => {
   font-size: 20px !important;
 }
 
-.el-input {
+:deep(.el-input) {
   --el-input-border: none !important;
   --el-input-border-color: transparent !important;
   --el-input-hover-border-color: transparent !important;
   --el-input-focus-border-color: transparent !important;
   --el-input-focus-border: transparent !important;
+  border-bottom: 1px solid var(--el-border-color) !important;
+}
+
+:deep(.el-select) {
+  --el-select-border: none !important;
   border-bottom: 1px solid var(--el-border-color) !important;
 }
 

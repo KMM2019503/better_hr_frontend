@@ -9,63 +9,66 @@
       >
     </div>
     <!-- Data Table -->
+
     <client-only>
-      <div class="mt-3" v-if="employees">
+      <div class="mt-3">
         <!-- table -->
-        <el-table
-          v-loading="isLoading"
-          v-if="isMounted"
-          :data="employees"
-          stripe
-          ref="multipleTableRef"
-          @selection-change="handleSelectionChange"
-          style="width: 100%; height: 800px"
-          max-height="100%"
-        >
-          <el-table-column
-            type="selection"
-            :selectable="selectable"
-            width="55"
-          />
-          <el-table-column
-            v-for="column in EmployeetableColumns"
-            :key="column.prop"
-            :fixed="column.fixed"
-            :prop="column.prop"
-            :label="column.label"
-            :width="column.width"
-            :show-overflow-tooltip="column?.show_overflow_tooltip"
+        <el-scrollbar height="820px">
+          <el-table
+            v-if="isMounted"
+            :data="employees"
+            stripe
+            ref="multipleTableRef"
+            @selection-change="handleSelectionChange"
+            style="width: 100%; height: 100%"
+            max-height="100%"
           >
-            <template v-if="column.prop === 'name'" #default="scope">
-              <p
-                @click="handleClickName(scope.row.id)"
-                class="cursor-pointer hover:text-[#1ed292]"
-              >
-                {{ scope.row.name }}
-              </p>
-            </template>
+            <el-table-column
+              type="selection"
+              :selectable="selectable"
+              width="55"
+            />
+            <el-table-column
+              v-for="column in EmployeetableColumns"
+              :key="column.prop"
+              :fixed="column.fixed"
+              :prop="column.prop"
+              :label="column.label"
+              :width="column.width"
+              :show-overflow-tooltip="column?.show_overflow_tooltip"
+            >
+              <template v-if="column.prop === 'name'" #default="scope">
+                <p
+                  @click="handleClickName(scope.row.id)"
+                  class="cursor-pointer hover:text-[#1ed292]"
+                >
+                  {{ scope.row.name }}
+                </p>
+              </template>
 
-            <template v-if="column.prop === 'date_of_birth'" #default="scope">
-              <p>
-                {{
-                  scope.row.date_of_birth
-                    ? calculateYearsFromDate(scope.row.date_of_birth)
-                    : "N/A"
-                }}
-              </p>
-            </template>
+              <template v-if="column.prop === 'date_of_birth'" #default="scope">
+                <p>
+                  {{
+                    scope.row.date_of_birth
+                      ? calculateYearsFromDate(scope.row.date_of_birth)
+                      : "N/A"
+                  }}
+                </p>
+              </template>
 
-            <template v-if="column.prop === 'joining_date'" #default="scope">
-              <p>
-                {{
-                  scope.row.joining_date
-                    ? formatDateTime(scope.row.joining_date)
-                    : "N/A"
-                }}
-              </p>
-            </template>
-          </el-table-column>
-        </el-table>
+              <template v-if="column.prop === 'joining_date'" #default="scope">
+                <p>
+                  {{
+                    scope.row.joining_date
+                      ? formatDateTime(scope.row.joining_date)
+                      : "N/A"
+                  }}
+                </p>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-scrollbar>
+
         <!-- pagination -->
         <div class="demo-pagination-block mt-2 float-right">
           <el-pagination
@@ -89,7 +92,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
-import { formatDate, calculateYearsFromDate } from "~/utils/helper.js";
+import { calculateYearsFromDate } from "~/utils/helper.js";
 import { EmployeetableColumns } from "../../constants/employeeTable";
 import { formatDateTime } from "../../utils/helper";
 import { useEmployeesStore } from "../../stores/employees";

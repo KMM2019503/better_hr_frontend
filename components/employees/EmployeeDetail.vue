@@ -36,7 +36,11 @@
         >
           <el-scrollbar height="800px">
             <el-tab-pane label="Profile" name="profile">
-              <Profile :empDetail="formData" @update-form="updateFormData" />
+              <Profile
+                :empDetail="formData"
+                :isError="isError"
+                @update-form="updateFormData"
+              />
             </el-tab-pane>
             <el-tab-pane label="Job" name="job">
               <Job :empDetail="formData" @update-form="updateFormData" />
@@ -73,6 +77,7 @@ const updateBtnDisabled = ref(true);
 const isLoading = ref(false);
 const activeName = ref("profile");
 const isChanged = ref(false);
+const isError = ref(false);
 let formData = ref({ ...props.employee });
 
 watch(
@@ -108,6 +113,17 @@ const { mutate: deleteUser } = useMutation(deleteUserById);
 
 const handleUpdate = async () => {
   if (updateBtnDisabled.value) return;
+
+  if (!formData.value.name || !formData.value.email) {
+    isError.value = true;
+    ElNotification({
+      title: "Error",
+      message: `Name and Email cannot be empty`,
+      type: "error",
+    });
+
+    return;
+  }
   try {
     isLoading.value = true;
     updateBtnDisabled.value = true;
@@ -207,5 +223,10 @@ const open = () => {
 <style scoped>
 .el-breadcrumb__item {
   font-size: 1rem;
+}
+
+:deep(.el-tabs__item.is-active),
+:deep(.el-tabs__item:hover) {
+  color: #1ed292 !important;
 }
 </style>

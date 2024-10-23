@@ -10,7 +10,12 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@pinia/nuxt", "@element-plus/nuxt", "@nuxtjs/apollo"],
+  modules: [
+    "@pinia/nuxt",
+    "@element-plus/nuxt",
+    "@nuxtjs/apollo",
+    "nuxt-lucide-icons",
+  ],
   apollo: {
     clients: {
       default: {

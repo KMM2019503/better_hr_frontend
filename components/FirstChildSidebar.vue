@@ -1,25 +1,18 @@
 <template>
-  <div class="w-full flex flex-col h-full bg-zinc-100 py-6 px-4">
-    <h3 class="text-lg font-semibold text-[#4A4A4A]">Employees</h3>
+  <div class="w-full flex flex-col h-full bg-[#F1F1F1]">
+    <div class="w-full">
+      <h3 class="text-lg font-semibold text-[#4A4A4A] mt-[1rem] mx-[12px]">
+        Employees
+      </h3>
+    </div>
     <ul class="py-2 flex flex-col gap-6">
-      <li class="w-full flex justify-start group">
-        <NuxtLink
-          to="/employees"
-          active-class="text-green-500"
-          class="w-full text-[14px] group-hover:text-green-500 transition"
-        >
-          Directory</NuxtLink
-        >
-      </li>
-      <li class="w-full flex justify-start group">
-        <!-- <NuxtLink
-          to="/update_request"
-          active-class="text-green-500"
-          class="w-full text-[14px] group-hover:text-green-500 transition"
-        >
-          Update Request</NuxtLink
-        > -->
-      </li>
+      <NuxtLink
+        to="/employees"
+        active-class="text-green-500"
+        class="w-full text-[14px] group-hover:text-green-500 transition p-[12px]"
+      >
+        Directory</NuxtLink
+      >
     </ul>
   </div>
 </template>

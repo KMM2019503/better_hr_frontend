@@ -7,7 +7,11 @@
       label-position="left"
     >
       <el-form-item label="Name">
-        <el-input v-model="form.name" @input="emitFormChange" />
+        <el-input
+          v-model="form.name"
+          @input="emitFormChange"
+          :class="{ onError: isError }"
+        />
       </el-form-item>
 
       <el-form-item label="Date of Birth">
@@ -23,14 +27,12 @@
       </el-form-item>
 
       <el-form-item label="Phone">
-        <template v-if="form.phone !== undefined">
-          <vue-tel-input
-            v-model="form.phone"
-            placeholder="Enter phone number"
-            mode="international"
-            @input="emitFormChange"
-          />
-        </template>
+        <vue-tel-input
+          v-model="form.phone"
+          placeholder="Enter phone number"
+          mode="international"
+          @input="emitFormChange"
+        />
       </el-form-item>
 
       <el-form-item label="Gender">
@@ -40,15 +42,22 @@
           @change="emitFormChange"
         >
           <el-option
+            v-for="gender in genders"
+            :key="gender.value"
             :label="gender.label"
             :value="gender.value"
-            v-for="gender in genders"
           />
         </el-select>
       </el-form-item>
+
       <el-form-item label="Work Email">
-        <el-input v-model="form.email" @input="emitFormChange" />
+        <el-input
+          v-model="form.email"
+          :class="{ onError: isError }"
+          @input="emitFormChange"
+        />
       </el-form-item>
+
       <el-form-item label="Home Address">
         <el-input
           v-model="form.address"
@@ -65,6 +74,10 @@ const props = defineProps({
   empDetail: {
     type: Object,
     required: true,
+  },
+  isError: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -95,7 +108,7 @@ watch(
     form.phone = newEmpDetail.phone;
     form.address = newEmpDetail.address;
   },
-  { immediate: true } // To run the watcher immediately with the initial value
+  { immediate: true }
 );
 
 const emitFormChange = () => {
@@ -103,4 +116,8 @@ const emitFormChange = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.onError {
+  --el-input-border-color: red !important;
+}
+</style>

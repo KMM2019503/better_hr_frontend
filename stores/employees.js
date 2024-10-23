@@ -35,7 +35,6 @@ export const useEmployeesStore = defineStore("employees", {
         const { data } = await apolloClient.query({
           query: fetchEmployeeDataQuery,
           variables,
-          fetchPolicy: "network-only",
         });
 
         // Update the state with the fetched data
