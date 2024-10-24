@@ -4,7 +4,7 @@
     <div class="w-full flex justify-center items-center">
       <img src="~/assets/img/better_icon.svg" alt="Logo" class="size-11 mt-2" />
     </div>
-    <ul class="flex flex-col w-full p-0">
+    <ul class="flex flex-col w-full p-0 mt-2">
       <NuxtLink
         to="/"
         active-class="text-green-500 w-full bg-[#F1F1F1] flex justify-center items-center"

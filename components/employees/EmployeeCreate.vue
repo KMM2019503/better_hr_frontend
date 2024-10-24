@@ -33,7 +33,13 @@
               :width="column.width"
               :show-overflow-tooltip="column?.show_overflow_tooltip"
             >
-              <template #default="scope" v-if="column.prop === 'phone'">
+              <template
+                #default="scope"
+                v-if="
+                  column.prop === 'phone' ||
+                  column.prop === 'emergency_contact_number'
+                "
+              >
                 <div class="!z-50 !absolute pb-[30px] !top-4">
                   <vue-tel-input
                     class="!z-[1000]"
@@ -43,6 +49,7 @@
                   />
                 </div>
               </template>
+
               <template v-else-if="column.prop === 'salary'" #default="scope">
                 <el-input-number
                   v-model="scope.row[column.prop]"
@@ -222,8 +229,7 @@ const submitForm = async (formEl) => {
           date_of_birth: employee.date_of_birth,
           nrc: employee.nrc,
           address: employee.address,
-          // phone: employee.phone,
-          phone: null,
+          phone: employee.phone,
           gender: employee.gender,
           skills: employee.skills,
           emergency_contact: employee.emergency_contact,
